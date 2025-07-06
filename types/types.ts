@@ -13,6 +13,17 @@ export type Contact ={
   createdAt: string;
 };
 
+export interface User {
+  id: string
+  email: string
+  name: string
+  role:'SUPER_ADMIN' |'ADMIN'|'MANAGEMENT'|'PARENT'|'STAFF'
+  image?: string | null
+  phone?: string | null
+  createdAt: string
+  updatedAt: string
+}
+
 export type Parent = {
   id:string;
   firstname: string

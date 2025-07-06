@@ -1,3 +1,4 @@
+"use client"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,16 +13,26 @@ import {
   } from "@/components/ui/dropdown-menu";
 import { Input } from '@/components/ui/input';
 import { SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger } from '@/components/ui/sidebar';
+import { getInitials } from '@/lib/get-initials';
+import { useUserSession } from '@/store/auth';
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Plus, Sparkles, Sun } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 export default function SidebarHeader() {
-    
+    const {user:data,clearSession}= useUserSession();
        const user= {
-          name: "Jere",
-          email: "jere@thinklab.com",
-          avatar: "/avatars/shadcn.jpg",
+          name: data?.name,
+          email: data?.email,
+          avatar: data?.image??"/avatars/shadcn.jpg",
         };
+        const initails=getInitials(user.name);
+        const router=useRouter()
+        async function handleLogout(){
+          await clearSession();
+          router.push("/login")
+          
+        }
        
   return (
     <div className="flex h-16 items-center gap-4 border-b px-4">
@@ -51,7 +62,7 @@ export default function SidebarHeader() {
                     src={user.avatar}
                     alt={user.name}
                   />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">{initails}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
@@ -114,9 +125,10 @@ export default function SidebarHeader() {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <LogOut />
-                Log out
+              <DropdownMenuItem asChild>
+                <button className='flex items-center space-x-2 w-full' onClick={handleLogout}>
+                  log out
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -9,7 +9,11 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 // import LogoLogin from "../logo-login";
 
-import {Mail, Lock, LogIn} from "lucide-react";
+import {Mail, Lock, LogIn, LockIcon} from "lucide-react";
+import { loginUser } from "@/actions/auth";
+import { useUserSession } from "@/store/auth";
+import { useRouter } from "next/navigation";
+import { User } from "@/types/types";
 
 export type RegisterInputProps = {
   fullName: string;
@@ -17,17 +21,41 @@ export type RegisterInputProps = {
   password: string;
   phone: string;
 };
+export type LoginInputProps = {
+  
+  email: string;
+  password: string;
+  
+};
 export default function Login() {
-  const [isLoading, ] = useState(false);
+  const [isLoading, setIsLoading ] = useState(false);
   const {
     register,
     handleSubmit,
  
     formState: { errors },
-  } = useForm<RegisterInputProps>();
-  
-  async function onSubmit(data: RegisterInputProps) {
-    console.log(data);
+  } = useForm<LoginInputProps>();
+  const {setUser}= useUserSession();
+  const router = useRouter();
+  async function onSubmit(data: LoginInputProps) {
+   try {
+    setIsLoading(true)
+    const sessionData = await loginUser(data);
+    
+    //save the data in zustand
+      setUser(sessionData?.user as User);
+      const role = sessionData?.user.role
+    //route the user to the role
+    setIsLoading(false)
+    if(role==="SUPER_ADMIN"){
+      router.push("/dashboard");
+    }else{
+      router.push("/login")
+    }
+   } catch (error) {
+    setIsLoading(false)
+    console.log(error);
+   }
   }
   return (
     
@@ -51,9 +79,18 @@ export default function Login() {
               placeholder="Eg. jere@gmail.com"
               icon={Mail}
             />
+            <TextInput
+              label="password"
+              register={register}
+              name="password"
+              type="password"
+              errors={errors}
+              placeholder="******"
+              icon={LockIcon}
+            />
             
            
-            <PasswordInput
+            {/* <PasswordInput
             icon={Lock}
               label="Password"
               register={register}
@@ -62,7 +99,7 @@ export default function Login() {
               errors={errors}
               placeholder="******"
               forgotPasswordLink="/forgot-password"
-            />
+            /> */}
 
             <SubmitButton
             buttonIcon={LogIn}

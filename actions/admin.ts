@@ -9,6 +9,7 @@ import { Contact } from "@/types/types";
 export async function createContact(data:ContactProps){
     try {
         const response = await api.post('/contacts',data);
+        
         return response.data;
     }catch (error){
         if (axios.isAxiosError(error)){
