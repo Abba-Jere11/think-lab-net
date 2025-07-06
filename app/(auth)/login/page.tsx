@@ -4,8 +4,7 @@ import { redirect } from "next/navigation";
 import React from 'react';
 
 export default async function page() {
-  const user = await getServerUser()
-    const role =user?.role
+  const user = await getServerUser();
     if(user){
       redirect("/dashboard")
     }

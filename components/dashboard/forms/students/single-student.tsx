@@ -169,7 +169,7 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
 
       reset()
       setImageUrl("/profile.png")
-      router.push("/dashboard/departments")
+      router.push("/dashboard/staff")
     } catch (error: any) {
       console.error("Error creating/updating staff:", error)
       toast.error(error.message || "An error occurred")
