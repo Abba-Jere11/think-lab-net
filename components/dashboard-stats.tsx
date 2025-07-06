@@ -1,42 +1,72 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, UserCheck, UserX, Calendar, TrendingUp } from "lucide-react"
-
-const stats = [
-  {
-    title: "Total Employees",
-    value: "247",
-    change: "+12",
-    changeText: "from last month",
-    icon: Users,
-    trend: "up",
-  },
-  {
-    title: "Present Today",
-    value: "231",
-    change: "93.5%",
-    changeText: "attendance rate",
-    icon: UserCheck,
-    trend: "up",
-  },
-  {
-    title: "Staff on Leave",
-    value: "16",
-    change: "8",
-    changeText: "pending approval",
-    icon: UserX,
-    trend: "neutral",
-  },
-  {
-    title: "Upcoming Events",
-    value: "5",
-    change: "2",
-    changeText: "this week",
-    icon: Calendar,
-    trend: "up",
-  },
-]
+import { useEffect, useState } from "react"
+import { staffApi } from "@/lib/api"
 
 export function DashboardStats() {
+  const [totalStaff, setTotalStaff] = useState<number>(0)
+  const [loading, setLoading] = useState(true)
+
+  // Fetch total staff count
+  useEffect(() => {
+    const fetchTotalStaff = async () => {
+      try {
+        setLoading(true)
+        const response = await staffApi.getAllStaff()
+        
+        if (response.success && response.data) {
+          // Calculate total staff from all departments
+          const totalCount = Object.values(response.data.staffByDepartment).reduce(
+            (total: number, staff: any) => total + staff.length,
+            0
+          )
+          setTotalStaff(totalCount)
+        }
+      } catch (error) {
+        console.error("Error fetching staff data:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchTotalStaff()
+  }, [])
+
+  const stats = [
+    {
+      title: "Total Employees",
+      value: loading ? "..." : totalStaff.toString(),
+      change: "+12",
+      changeText: "from last month",
+      icon: Users,
+      trend: "up",
+    },
+    {
+      title: "Present Today",
+      value: "231",
+      change: "93.5%",
+      changeText: "attendance rate",
+      icon: UserCheck,
+      trend: "up",
+    },
+    {
+      title: "Staff on Leave",
+      value: "16",
+      change: "8",
+      changeText: "pending approval",
+      icon: UserX,
+      trend: "neutral",
+    },
+    {
+      title: "Upcoming Events",
+      value: "5",
+      change: "2",
+      changeText: "this week",
+      icon: Calendar,
+      trend: "up",
+    },
+  ]
+
   return (
     <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (

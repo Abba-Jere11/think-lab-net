@@ -41,6 +41,7 @@ import {
   UserCheck,
   UserX,
   Key,
+  Users2,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -115,7 +116,7 @@ export default function AppSidebar() {
         },
         {
           title: "Tasks & Projects",
-          url: "#",
+          url: "/dashboard/tasks",
           icon: ClipboardList,
         },
         {
@@ -323,6 +324,26 @@ export default function AppSidebar() {
         {
           title: "Contacts",
           url: "/dashboard/admin/contacts",
+        },
+        
+      ],
+    },
+    {
+      title: "Users",
+      url: "/dashboard/users",
+      icon: Users2,
+      items: [
+        {
+          title: "Parents",
+          url: "/dashboard/users/parents",
+        },
+        {
+          title: "Managements",
+          url: "/dashboard/users/managements",
+        },
+        {
+          title: "Secretary",
+          url: "/dashboard/users/secretary",
         },
         
       ],

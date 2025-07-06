@@ -12,20 +12,20 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-import { staffApi, type StaffData } from "@/lib/api"
+import { parentApi, type ParentData } from "@/lib/parent-api"
 
 export type SelectOptionProps = {
   label: string
   value: string
 }
 
-type SingleStudentprops = {
+type SingleParentProps = {
   editingId?: string | undefined
   initialData?: any | undefined | null
 }
 
 // ✅ Fixed: Updated form schema to match all fields
-export type StaffProps = {
+export type ParentProps = {
   firstname: string
   lastname: string
   email: string
@@ -45,7 +45,7 @@ export type StaffProps = {
   lga: string
 }
 
-export default function SingleStudent({ editingId, initialData }: SingleStudentprops) {
+export default function ParentForm({ editingId, initialData }: SingleParentProps) {
   const statesAndLgas: { [key: string]: string[] } = {
     // ... your existing states data
     Borno: [
@@ -69,11 +69,9 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
   }))
 
   const departments = [
-    { label: "ICT", value: "INFORMATION TECHNOLOGY" },
-    { label: "Technical", value: "TECHNICAL" },
-    { label: "Finance", value: "FINANCE" },
-    { label: "Communications", value: "COMMUNICATIONS" },
-    { label: "Corporate Services", value: "CORPORATE SERVICES" },
+    { label: "Guardian", value: "Guardian" },
+    { label: "Parent", value: "Parent" },
+    
   ]
 
   const gender = [
@@ -94,7 +92,7 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
     watch,
     setValue,
     formState: { errors },
-  } = useForm<StaffProps>({
+  } = useForm<ParentProps>({
     defaultValues: {
       firstname: initialData?.firstname || "",
       lastname: initialData?.lastname || "",
@@ -131,13 +129,13 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
     : []
 
   // ✅ Fixed: Simplified save function
-  async function saveStaff(data: StaffProps) {
+  async function saveParent(data: ParentProps) {
     try {
       setLoading(true)
       console.log("Form data being sent:", data) // Debug log
 
-      // ✅ Prepare staff data directly from form
-      const staffData: StaffData = {
+      // ✅ Prepare parent data directly from form
+      const parentData: ParentData = {
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
@@ -156,22 +154,22 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
         lga: data.lga,
       }
 
-      console.log("Staff data being sent to API:", staffData) // Debug log
+      console.log("Parent data being sent to API:", parentData) // Debug log
 
       if (editingId) {
-        await staffApi.updateStaff(editingId, staffData)
-        toast.success("Staff updated successfully!")
+        await parentApi.updateParent(editingId, parentData)
+        toast.success("Parent updated successfully!")
       } else {
-        const response = await staffApi.createStaff(staffData)
+        const response = await parentApi.createParent(parentData)
         console.log("API Response:", response) // Debug log
-        toast.success("Staff created successfully!")
+        toast.success("Parent created successfully!")
       }
 
       reset()
-      setImageUrl("/profile.png")
-      router.push("/dashboard/departments")
+      // setImageUrl("/profile.png")
+      router.push("/dashboard/users/parents")
     } catch (error: any) {
-      console.error("Error creating/updating staff:", error)
+      console.error("Error creating/updating parent:", error)
       toast.error(error.message || "An error occurred")
     } finally {
       setLoading(false)
@@ -179,7 +177,7 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
   }
 
   // ✅ Helper functions for controlled inputs
-  const handleSelectChange = (field: keyof StaffProps, value: string) => {
+  const handleSelectChange = (field: keyof ParentProps, value: string) => {
     setValue(field, value)
     
     // Clear LGA when state changes
@@ -189,8 +187,8 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
   }
 
   return (
-    <form onSubmit={handleSubmit(saveStaff)}>
-      <FormHeader href="/dashboard/departments" parent="" title="Staffs" editingId={editingId} loading={loading} />
+    <form onSubmit={handleSubmit(saveParent)}>
+      <FormHeader href="/dashboard/parents" parent="" title="Parents" editingId={editingId} loading={loading} />
 
       <div className="grid grid-cols-12 gap-6 py-8 p-5">
         <div className="lg:col-span-12 col-span-full space-y-3">
@@ -250,6 +248,8 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
                 options={departments}
                 value={watch("department")}
                 onChange={(value) => handleSelectChange("department", value)}
+                toolTipText="Add New Department"
+                href="/dashboard/parents/new"
                 isSearchable={true}
               />
               
@@ -258,7 +258,7 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
                 errors={errors}
                 label="Password"
                 name="password"
-                toolTipText="Password created will be used by staff"
+                toolTipText="Password created will be used by parent"
               />
             </div>
             
@@ -284,7 +284,7 @@ export default function SingleStudent({ editingId, initialData }: SingleStudentp
         </div>
       </div>
       
-      <FormFooter href="/dashboard/departments" editingId={editingId} loading={loading} title="Staff" parent="" />
+      <FormFooter href="/dashboard/parents" editingId={editingId} loading={loading} title="Parent" parent="" />
     </form>
   )
 }

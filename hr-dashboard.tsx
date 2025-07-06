@@ -12,6 +12,7 @@ import { LeaveRequests } from "./components/leave-requests"
 import { UpcomingEvents } from "./components/upcoming-events"
 import { PerformanceOverview } from "./components/performance-overview"
 import { BottomTabs } from "./components/bottom-tabs"
+import { AnnouncementsBoard } from "./components/announcements-board"
 
 export default function HRDashboard() {
   return (
@@ -34,7 +35,7 @@ export default function HRDashboard() {
 
           <div className="grid gap-4 sm:gap-6 grid-cols-1 xl:grid-cols-2">
             <TasksProjects />
-            <NoticeBoard />
+            <AnnouncementsBoard />
           </div>
 
           <div className="grid gap-4 sm:gap-6 grid-cols-1 xl:grid-cols-2">

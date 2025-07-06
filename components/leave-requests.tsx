@@ -60,8 +60,8 @@ export function LeaveRequests() {
           <p className="text-sm text-gray-500 mt-1">Manage employee leave applications</p>
         </div>
         <Button size="sm" variant="outline">
-          <Eye className="h-4 w-4 mr-2" />
-          View All
+           <Eye className="h-4 w-4 mr-2" />
+          <a href="/dashboard/leave-hr">View All Requests</a>
         </Button>
       </CardHeader>
       <CardContent className="space-y-4">

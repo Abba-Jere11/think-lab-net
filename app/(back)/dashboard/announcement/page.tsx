@@ -1,4 +1,5 @@
-import { AnnouncementPage } from "@/components/announcement-page"
+import AnnouncementPage from "@/components/announcement-page";
+
 
 
 export default function Page() {

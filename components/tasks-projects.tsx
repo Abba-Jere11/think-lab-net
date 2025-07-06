@@ -50,15 +50,9 @@ export function TasksProjects() {
           <CardTitle className="text-base sm:text-lg font-semibold">Tasks & Projects</CardTitle>
           <p className="text-xs sm:text-sm text-gray-500 mt-1">Track ongoing projects and deadlines</p>
         </div>
-        <Button
-          size="sm"
-          className="bg-primary self-end sm:self-auto"
-          style={{ backgroundColor: "oklch(0.637 0.237 25.331)" }}
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          <span className="hidden sm:inline">Add Task</span>
-          <span className="sm:hidden">Add</span>
-        </Button>
+         <Button size="sm" variant="outline" asChild>
+            <a href="/dashboard/tasks">View All tasks</a>
+          </Button>
       </CardHeader>
       <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
         {tasks.map((task) => (
