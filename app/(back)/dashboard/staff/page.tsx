@@ -14,19 +14,46 @@ import { staffApi } from "@/lib/api"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
+// Define interfaces for type safety
+interface StaffMember {
+  id: string
+  name: string
+  firstname: string
+  lastname: string
+  role: string
+  email: string
+  phone: string
+  avatar: string
+  department: string
+  hireDate: string
+  address: string
+  emergencyContact: string
+}
+
+interface Department {
+  id: string
+  name: string
+  description: string
+  manager: string
+  staffCount: number
+  location: string
+  established: string
+  staff: StaffMember[]
+}
+
 export default function DepartmentsPage() {
-  const [departmentsData, setDepartmentsData] = useState<any[]>([])
+  const [departmentsData, setDepartmentsData] = useState<Department[]>([])
   const [loading, setLoading] = useState(true)
-  const [selectedDepartment, setSelectedDepartment] = useState<any>(null)
+  const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [showDepartmentsList, setShowDepartmentsList] = useState(false)
   
   // Modal states
-  const [viewStaffModal, setViewStaffModal] = useState<any>(null)
-  const [editStaffModal, setEditStaffModal] = useState<any>(null)
-  const [deleteStaffModal, setDeleteStaffModal] = useState<any>(null)
-  const [editDepartmentModal, setEditDepartmentModal] = useState<any>(null)
-  const [deleteDepartmentModal, setDeleteDepartmentModal] = useState<any>(null)
+  const [viewStaffModal, setViewStaffModal] = useState<StaffMember | null>(null)
+  const [editStaffModal, setEditStaffModal] = useState<StaffMember | null>(null)
+  const [deleteStaffModal, setDeleteStaffModal] = useState<StaffMember | null>(null)
+  const [editDepartmentModal, setEditDepartmentModal] = useState<Department | null>(null)
+  const [deleteDepartmentModal, setDeleteDepartmentModal] = useState<Department | null>(null)
 
   // Fetch staff data on component mount
   useEffect(() => {
@@ -79,19 +106,21 @@ export default function DepartmentsPage() {
   }
 
   // Staff action handlers
-  const handleViewStaff = (staff: any) => {
+  const handleViewStaff = (staff: StaffMember) => {
     setViewStaffModal(staff)
   }
 
-  const handleEditStaff = (staff: any) => {
+  const handleEditStaff = (staff: StaffMember) => {
     setEditStaffModal({ ...staff })
   }
 
-  const handleDeleteStaff = (staff: any) => {
+  const handleDeleteStaff = (staff: StaffMember) => {
     setDeleteStaffModal(staff)
   }
 
   const handleSaveStaffEdit = async () => {
+    if (!editStaffModal) return
+
     try {
       // Here you would call your API to update the staff member
       // await staffApi.updateStaff(editStaffModal.id, editStaffModal)
@@ -100,7 +129,7 @@ export default function DepartmentsPage() {
       setDepartmentsData(prevData => 
         prevData.map(dept => ({
           ...dept,
-          staff: dept.staff.map(staff => 
+          staff: dept.staff.map((staff: StaffMember) => 
             staff.id === editStaffModal.id ? editStaffModal : staff
           )
         }))
@@ -108,12 +137,12 @@ export default function DepartmentsPage() {
       
       // Update selected department if it contains this staff member
       if (selectedDepartment) {
-        setSelectedDepartment(prev => ({
+        setSelectedDepartment(prev => prev ? ({
           ...prev,
-          staff: prev.staff.map(staff => 
+          staff: prev.staff.map((staff: StaffMember) => 
             staff.id === editStaffModal.id ? editStaffModal : staff
           )
-        }))
+        }) : null)
       }
       
       setEditStaffModal(null)
@@ -125,6 +154,8 @@ export default function DepartmentsPage() {
   }
 
   const handleConfirmDeleteStaff = async () => {
+    if (!deleteStaffModal) return
+
     try {
       // Here you would call your API to delete the staff member
       // await staffApi.deleteStaff(deleteStaffModal.id)
@@ -133,19 +164,19 @@ export default function DepartmentsPage() {
       setDepartmentsData(prevData => 
         prevData.map(dept => ({
           ...dept,
-          staff: dept.staff.filter(staff => staff.id !== deleteStaffModal.id),
-          staffCount: dept.staff.filter(staff => staff.id !== deleteStaffModal.id).length
+          staff: dept.staff.filter((staff: StaffMember) => staff.id !== deleteStaffModal.id),
+          staffCount: dept.staff.filter((staff: StaffMember) => staff.id !== deleteStaffModal.id).length
         }))
       )
       
       // Update selected department if it contains this staff member
       if (selectedDepartment) {
-        const updatedStaff = selectedDepartment.staff.filter(staff => staff.id !== deleteStaffModal.id)
-        setSelectedDepartment(prev => ({
+        const updatedStaff = selectedDepartment.staff.filter((staff: StaffMember) => staff.id !== deleteStaffModal.id)
+        setSelectedDepartment(prev => prev ? ({
           ...prev,
           staff: updatedStaff,
           staffCount: updatedStaff.length
-        }))
+        }) : null)
       }
       
       setDeleteStaffModal(null)
@@ -158,7 +189,9 @@ export default function DepartmentsPage() {
 
   // Department action handlers
   const handleEditDepartment = () => {
-    setEditDepartmentModal({ ...selectedDepartment })
+    if (selectedDepartment) {
+      setEditDepartmentModal({ ...selectedDepartment })
+    }
   }
 
   const handleDeleteDepartment = () => {
@@ -166,6 +199,8 @@ export default function DepartmentsPage() {
   }
 
   const handleSaveDepartmentEdit = async () => {
+    if (!editDepartmentModal) return
+
     try {
       // Here you would call your API to update the department
       // await departmentApi.updateDepartment(editDepartmentModal.id, editDepartmentModal)
@@ -187,6 +222,8 @@ export default function DepartmentsPage() {
   }
 
   const handleConfirmDeleteDepartment = async () => {
+    if (!deleteDepartmentModal) return
+
     try {
       // Here you would call your API to delete the department
       // await departmentApi.deleteDepartment(deleteDepartmentModal.id)
@@ -237,15 +274,14 @@ export default function DepartmentsPage() {
           <h1 className="text-lg font-semibold">Departments</h1>
         </div>
         <div className="ml-auto">
-
           <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-red-200 text-red-600 hover:bg-red-50 bg-transparent"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    <Link href="/dashboard/departments/new">Add department</Link>
-                  </Button>
+            size="sm"
+            variant="outline"
+            className="border-red-200 text-red-600 hover:bg-red-50 bg-transparent"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            <Link href="/dashboard/departments/new">Add department</Link>
+          </Button>
         </div>
       </header>
 
@@ -556,7 +592,7 @@ export default function DepartmentsPage() {
                   <Input
                     id="firstname"
                     value={editStaffModal.firstname}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, firstname: e.target.value, name: `${e.target.value} ${prev.lastname}` }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, firstname: e.target.value, name: `${e.target.value} ${prev.lastname}` }) : null)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -564,7 +600,7 @@ export default function DepartmentsPage() {
                   <Input
                     id="lastname"
                     value={editStaffModal.lastname}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, lastname: e.target.value, name: `${prev.firstname} ${e.target.value}` }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, lastname: e.target.value, name: `${prev.firstname} ${e.target.value}` }) : null)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -573,7 +609,7 @@ export default function DepartmentsPage() {
                     id="email"
                     type="email"
                     value={editStaffModal.email}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, email: e.target.value }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, email: e.target.value }) : null)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -581,7 +617,7 @@ export default function DepartmentsPage() {
                   <Input
                     id="phone"
                     value={editStaffModal.phone}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, phone: e.target.value }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, phone: e.target.value }) : null)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -589,7 +625,7 @@ export default function DepartmentsPage() {
                   <Input
                     id="role"
                     value={editStaffModal.role}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, role: e.target.value }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, role: e.target.value }) : null)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -598,7 +634,7 @@ export default function DepartmentsPage() {
                     id="hireDate"
                     type="date"
                     value={editStaffModal.hireDate}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, hireDate: e.target.value }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, hireDate: e.target.value }) : null)}
                   />
                 </div>
                 <div className="space-y-2 md:col-span-2">
@@ -606,7 +642,7 @@ export default function DepartmentsPage() {
                   <Textarea
                     id="address"
                     value={editStaffModal.address}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, address: e.target.value }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, address: e.target.value }) : null)}
                   />
                 </div>
                 <div className="space-y-2 md:col-span-2">
@@ -614,7 +650,7 @@ export default function DepartmentsPage() {
                   <Input
                     id="emergencyContact"
                     value={editStaffModal.emergencyContact}
-                    onChange={(e) => setEditStaffModal(prev => ({ ...prev, emergencyContact: e.target.value }))}
+                    onChange={(e) => setEditStaffModal(prev => prev ? ({ ...prev, emergencyContact: e.target.value }) : null)}
                   />
                 </div>
               </div>
@@ -662,7 +698,7 @@ export default function DepartmentsPage() {
       </Dialog>
 
       {/* Edit Department Modal */}
-      <Dialog open={!!editDepartmentModal} onOpenChange={() => setEditDepartmentModal(null)}>
+      {/* <Dialog open={!!editDepartmentModal} onOpenChange={() => setEditDepartmentModal(null)}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
@@ -715,7 +751,7 @@ export default function DepartmentsPage() {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
 
       {/* Delete Department Modal */}
       <Dialog open={!!deleteDepartmentModal} onOpenChange={() => setDeleteDepartmentModal(null)}>
