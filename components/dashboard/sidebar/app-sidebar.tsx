@@ -335,15 +335,15 @@ export default function AppSidebar() {
       items: [
         {
           title: "Parents",
-          url: "/dashboard/users/parents",
+          url: "/dashboard/users/parents-portal",
         },
         {
           title: "Managements",
-          url: "/dashboard/users/managements",
+          url: "/dashboard/users/managements-portal",
         },
         {
-          title: "Secretary",
-          url: "/dashboard/users/secretary",
+          title: "Staff",
+          url: "/dashboard/users/staff-portal",
         },
         
       ],
