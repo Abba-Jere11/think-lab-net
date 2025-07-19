@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button"
 import { TrendingUp, TrendingDown, Award, Target, BarChart3 } from "lucide-react"
 
 const departmentPerformance = [
-  { dept: "Engineering", score: 96, trend: "up", change: "+2%", employees: 45 },
-  { dept: "Marketing", score: 94, trend: "up", change: "+1%", employees: 18 },
-  { dept: "Sales", score: 92, trend: "down", change: "-1%", employees: 32 },
-  { dept: "HR", score: 98, trend: "up", change: "+3%", employees: 8 },
+  { dept: "IT", score: 96, trend: "up", change: "+2%", employees: 45 },
+  { dept: "Technical", score: 94, trend: "up", change: "+1%", employees: 18 },
+  { dept: "Corporate Services", score: 92, trend: "down", change: "-1%", employees: 32 },
+  { dept: "Communications", score: 98, trend: "up", change: "+3%", employees: 8 },
   { dept: "Finance", score: 95, trend: "up", change: "+1%", employees: 12 },
 ]
 

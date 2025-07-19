@@ -36,14 +36,14 @@ export function DashboardStats() {
     {
       title: "Total Employees",
       value: loading ? "..." : totalStaff.toString(),
-      change: "+12",
+      
       changeText: "from last month",
       icon: Users,
       trend: "up",
     },
     {
       title: "Present Today",
-      value: "231",
+      value: "101",
       change: "93.5%",
       changeText: "attendance rate",
       icon: UserCheck,

@@ -16,54 +16,48 @@ const tabs = [
 
 const recentHires = [
   {
-    name: "Alex Johnson",
+    name: "Muhammad Jere",
     position: "Software Engineer",
-    department: "Engineering",
-    startDate: "Dec 1, 2024",
+    department: "IT",
+    startDate: "May 11, 2025",
     avatar: "/placeholder.svg?height=32&width=32",
   },
   {
-    name: "Maria Garcia",
-    position: "UX Designer",
-    department: "Design",
-    startDate: "Nov 28, 2024",
+    name: "Saadatu Dalhatu",
+    position: "Engineer",
+    department: "Technical",
+    startDate: "May 11, 2025",
     avatar: "/placeholder.svg?height=32&width=32",
   },
   {
-    name: "David Chen",
-    position: "Product Manager",
-    department: "Product",
-    startDate: "Nov 25, 2024",
+    name: "Abdullahi Kolo",
+    position: "Digital Marketer",
+    department: "Business developmet",
+    startDate: "May 07, 2025",
     avatar: "/placeholder.svg?height=32&width=32",
   },
-  {
-    name: "Sarah Wilson",
-    position: "Marketing Specialist",
-    department: "Marketing",
-    startDate: "Nov 22, 2024",
-    avatar: "/placeholder.svg?height=32&width=32",
-  },
+  
 ]
 
 const topPerformers = [
   {
-    name: "Emily Rodriguez",
+    name: "Muhammad Jere",
     position: "Senior Developer",
     department: "Engineering",
     score: 98,
     achievement: "Project Excellence",
   },
   {
-    name: "Michael Brown",
-    position: "Sales Manager",
-    department: "Sales",
+    name: "Adeniyi Favor",
+    position: "Barrister",
+    department: "Legal",
     score: 96,
-    achievement: "Top Revenue Generator",
+    achievement: "Employee Satisfaction",
   },
   {
-    name: "Lisa Wang",
-    position: "HR Specialist",
-    department: "Human Resources",
+    name: "Omar Tor",
+    position: "Computer Engineer",
+    department: "IT",
     score: 94,
     achievement: "Employee Satisfaction",
   },
@@ -72,21 +66,21 @@ const topPerformers = [
 const recentRequests = [
   {
     type: "Leave Request",
-    employee: "John Smith",
+    employee: "Muhammad jere",
     details: "Annual Leave - 5 days",
     status: "Pending",
     time: "2 hours ago",
   },
   {
     type: "Overtime Request",
-    employee: "Emma Wilson",
+    employee: "Omar Tor",
     details: "Weekend work - 8 hours",
     status: "Approved",
     time: "4 hours ago",
   },
   {
     type: "Training Request",
-    employee: "Robert Davis",
+    employee: "Rufai Shagari",
     details: "AWS Certification Course",
     status: "Under Review",
     time: "1 day ago",
@@ -96,13 +90,13 @@ const recentRequests = [
 const monthlyStats = [
   {
     title: "New Hires",
-    value: "12",
-    change: "+3 from last month",
+    value: "7",
+    change: "+7 from last month",
     icon: UserPlus,
   },
   {
     title: "Promotions",
-    value: "8",
+    value: "2",
     change: "+2 from last month",
     icon: Award,
   },

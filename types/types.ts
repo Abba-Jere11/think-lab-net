@@ -13,11 +13,11 @@ export type Contact ={
   createdAt: string;
 };
 
-export interface User {
+export type User ={
   id: string
   email: string
   name: string
-  role:'SUPER_ADMIN' |'ADMIN'|'MANAGEMENT'|'PARENT'|'STAFF'
+  role:UserRole
   image?: string | null
   phone?: string | null
   createdAt: string
@@ -56,3 +56,14 @@ export type DepartmentCreateProps ={
   managerId: string
   established: string
 }
+
+export type UserCreateProps={
+  email:string;
+  password:string;
+  role:UserRole;
+  name:string;
+  phone?:string;
+  image?:string;
+}
+
+export type UserRole = 'SUPER_ADMIN' |'ADMIN'|'MANAGEMENT'|'PARENT'|'STAFF';

@@ -49,8 +49,10 @@ export default function Login() {
     setIsLoading(false)
     if(role==="SUPER_ADMIN"){
       router.push("/dashboard");
-    }else{
-      router.push("/login")
+    }else if(role==="STAFF"){
+      router.push("/portal")
+     } else{
+      router.push("/staff")
     }
    } catch (error) {
     setIsLoading(false)

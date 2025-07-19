@@ -8,7 +8,7 @@ export function ModernCharts() {
       <Card className="border-0 shadow-sm">
         <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0 px-4 sm:px-6">
           <div>
-            <CardTitle className="text-base sm:text-lg font-semibold">Tasks Notice Board</CardTitle>
+            <CardTitle className="text-base sm:text-lg font-semibold">Notice Board</CardTitle>
             <p className="text-xs sm:text-sm text-gray-500 mt-1">Track team progress and announcements</p>
           </div>
           <Button variant="ghost" size="icon" className="self-end sm:self-auto">
@@ -68,7 +68,7 @@ export function ModernCharts() {
       <Card className="border-0 shadow-sm">
         <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0 px-4 sm:px-6">
           <div>
-            <CardTitle className="text-base sm:text-lg font-semibold">Leave Calendar</CardTitle>
+            <CardTitle className="text-base sm:text-lg font-semibold">Calendar</CardTitle>
             <p className="text-xs sm:text-sm text-gray-500 mt-1">Upcoming leave requests and events</p>
           </div>
           <Button variant="ghost" size="sm" className="text-primary self-end sm:self-auto">
@@ -79,34 +79,34 @@ export function ModernCharts() {
           <div className="space-y-3 sm:space-y-4">
             <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-purple-50 to-purple-100/50 rounded-xl border border-purple-200/50">
               <div className="flex flex-col items-center flex-shrink-0">
-                <span className="text-xs text-purple-600 font-medium">DEC</span>
+                <span className="text-xs text-purple-600 font-medium">JUL</span>
                 <span className="text-base sm:text-lg font-bold text-purple-700">23</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-xs sm:text-sm truncate">John Smith - Annual Leave</h4>
+                <h4 className="font-medium text-xs sm:text-sm truncate">Muhammad Jere - Sick Leave</h4>
                 <p className="text-xs text-gray-500">5 days • Approved</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-pink-50 to-pink-100/50 rounded-xl border border-pink-200/50">
               <div className="flex flex-col items-center flex-shrink-0">
-                <span className="text-xs text-pink-600 font-medium">JAN</span>
-                <span className="text-base sm:text-lg font-bold text-pink-700">15</span>
+                <span className="text-xs text-pink-600 font-medium">JUL</span>
+                <span className="text-base sm:text-lg font-bold text-pink-700">29</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-xs sm:text-sm truncate">Sarah Davis - Maternity Leave</h4>
-                <p className="text-xs text-gray-500">60 days • Approved</p>
+                <h4 className="font-medium text-xs sm:text-sm truncate">Omar Tor - Annual Leave</h4>
+                <p className="text-xs text-gray-500">14 days • Approved</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-yellow-50 to-yellow-100/50 rounded-xl border border-yellow-200/50">
               <div className="flex flex-col items-center flex-shrink-0">
-                <span className="text-xs text-yellow-600 font-medium">DEC</span>
+                <span className="text-xs text-yellow-600 font-medium">Aug</span>
                 <span className="text-base sm:text-lg font-bold text-yellow-700">20</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-xs sm:text-sm truncate">Holiday Party</h4>
-                <p className="text-xs text-gray-500">Company Event • 6:00 PM</p>
+                <h4 className="font-medium text-xs sm:text-sm truncate">Staff Week</h4>
+                <p className="text-xs text-gray-500">Company Event • 10:00 AM</p>
               </div>
             </div>
           </div>

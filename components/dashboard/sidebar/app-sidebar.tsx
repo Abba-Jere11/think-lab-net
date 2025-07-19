@@ -148,7 +148,7 @@ export default function AppSidebar() {
       items: [
         {
           title: "apply",
-          url: "/dashboard/leave-apply",
+          url: "/dashboard/leave",
         },]
     },
     {
