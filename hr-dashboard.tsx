@@ -7,8 +7,8 @@ import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/s
 import { DashboardStats } from "./components/dashboard-stats"
 import { ModernCharts } from "./components/modern-charts"
 import { TasksProjects } from "./components/tasks-projects"
-import { NoticeBoard } from "./components/notice-board"
-import { LeaveRequests } from "./components/leave-requests"
+
+
 import { UpcomingEvents } from "./components/upcoming-events"
 import { PerformanceOverview } from "./components/performance-overview"
 import { BottomTabs } from "./components/bottom-tabs"
@@ -39,7 +39,7 @@ export default function HRDashboard() {
           </div>
 
           <div className="grid gap-4 sm:gap-6 grid-cols-1 xl:grid-cols-2">
-            <LeaveRequests />
+           
             <UpcomingEvents />
           </div>
 
