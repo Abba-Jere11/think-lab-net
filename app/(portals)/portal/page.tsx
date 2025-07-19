@@ -1,34 +1,9 @@
 
+import { getServerUser } from "@/actions/auth";
+import WelcomePortal from "@/components/portal/welcomPortal";
 import React from "react";
 
 
-import PoratAnalytics from "@/components/portal/PoratAnalytics";
-import { getServerUser } from "@/actions/auth";
-import WelcomePortal from "@/components/portal/welcomPortal";
-export function getInitials(name: string | null | undefined): string {
-  if (name) {
-    // Split the name into an array of words
-    const nameParts = name.split(" ");
-
-    // Map each word to its first letter and convert to uppercase
-    const initials = nameParts.map((part) => part.charAt(0).toUpperCase());
-
-    // Join the initials to form the final string
-    return initials.join("");
-  } else {
-    return "CN";
-  }
-}
-export interface PatientProps {
-  patientId: string;
-  name: string;
-  email: string;
-  phone: string;
-  location: string;
-  gender: string;
-  occupation: string;
-  dob: string;
-}
 
 
 export default async  function Portal() {
