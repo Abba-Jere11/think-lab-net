@@ -4,7 +4,6 @@ import React from "react";
 
 import PoratAnalytics from "@/components/portal/PoratAnalytics";
 import { getServerUser } from "@/actions/auth";
-import WelcomePortal from "@/components/portal/welcomPortal";
 export function getInitials(name: string | null | undefined): string {
   if (name) {
     // Split the name into an array of words
@@ -31,9 +30,20 @@ export interface PatientProps {
 }
 
 
-export default async  function Portal() {
- const user = await getServerUser();
+export default async function WelcomePortal() {
+    const user = await getServerUser();
   return (
-   <WelcomePortal/>
-  );
+    <div className="px-8 py-4">
+                <div className="flex items-center justify-between">
+                  <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight mb-3">
+                    Welcome, {user?.name} <br /> {user?.role}
+                  </h1>
+                  <div className="">
+                    <p></p>
+                  </div>
+                </div>
+             <PoratAnalytics/>
+              
+              </div>
+  )
 }

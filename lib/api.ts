@@ -9,6 +9,16 @@ const api = axios.create({
   },
 })
 
+export interface UserData {
+  id?: string
+  name: string
+  email: string
+  phone?: string
+  password: string
+  imageUrl?: string
+  role?:string
+  
+}
 export interface StaffData {
   id?: string
   firstname: string
@@ -35,6 +45,8 @@ export interface ApiResponse<T> {
   data?: T
   error?: string
 }
+
+
 
 // Staff API functions
 export const staffApi = {
